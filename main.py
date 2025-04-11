@@ -1,3 +1,5 @@
+"""Main Module"""
+
 from fastapi import FastAPI
 import uvicorn
 
