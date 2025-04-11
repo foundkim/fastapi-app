@@ -1,0 +1,197 @@
+[
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "InferenceOut",
+        "importPath": "schemas",
+        "description": "schemas",
+        "isExtraImport": true,
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "InferenceIn",
+        "importPath": "schemas",
+        "description": "schemas",
+        "isExtraImport": true,
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "InferenceIn",
+        "importPath": "schemas",
+        "description": "schemas",
+        "isExtraImport": true,
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "get_prediction",
+        "importPath": "services.ml",
+        "description": "services.ml",
+        "isExtraImport": true,
+        "detail": "services.ml",
+        "documentation": {}
+    },
+    {
+        "label": "BaseSettings",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "SettingsConfigDict",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "mlflow",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "mlflow",
+        "description": "mlflow",
+        "detail": "mlflow",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "importPath": "core",
+        "description": "core",
+        "isExtraImport": true,
+        "detail": "core",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "importPath": "core",
+        "description": "core",
+        "isExtraImport": true,
+        "detail": "core",
+        "documentation": {}
+    },
+    {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
+        "documentation": {}
+    },
+    {
+        "label": "inference_router",
+        "importPath": "api",
+        "description": "api",
+        "isExtraImport": true,
+        "detail": "api",
+        "documentation": {}
+    },
+    {
+        "label": "inference_router",
+        "kind": 5,
+        "importPath": "api.inference",
+        "description": "api.inference",
+        "peekOfCode": "inference_router = APIRouter(prefix=\"/inference\", tags=[\"Prediction\",])\n@inference_router.post(\"/\", response_model=InferenceOut)\nasync def predict(input: InferenceIn):\n    \"\"\"Predict\"\"\"\n    return InferenceOut(prediction= get_prediction(input=input))",
+        "detail": "api.inference",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "core.config",
+        "description": "core.config",
+        "peekOfCode": "class Config(BaseSettings):\n    \"\"\"Env variables\"\"\"\n    # General\n    API_TITLE: str\n    API_HOST: str\n    API_PORT: int\n    # Model\n    MODEL_URI: str\n    model_config = SettingsConfigDict(env_file=\".env\")\nconfig = Config()",
+        "detail": "core.config",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "core.config",
+        "description": "core.config",
+        "peekOfCode": "config = Config()",
+        "detail": "core.config",
+        "documentation": {}
+    },
+    {
+        "label": "InferenceIn",
+        "kind": 6,
+        "importPath": "schemas.inference",
+        "description": "schemas.inference",
+        "peekOfCode": "class InferenceIn(BaseModel):\n    \"\"\"Model for inference request\"\"\"\n    sepal_length: float\n    sepal_width: float\n    petal_length: float\n    petal_width: float\nclass InferenceOut(BaseModel):\n    \"\"\"Inference output\"\"\"\n    prediction: float",
+        "detail": "schemas.inference",
+        "documentation": {}
+    },
+    {
+        "label": "InferenceOut",
+        "kind": 6,
+        "importPath": "schemas.inference",
+        "description": "schemas.inference",
+        "peekOfCode": "class InferenceOut(BaseModel):\n    \"\"\"Inference output\"\"\"\n    prediction: float",
+        "detail": "schemas.inference",
+        "documentation": {}
+    },
+    {
+        "label": "get_prediction",
+        "kind": 2,
+        "importPath": "services.ml",
+        "description": "services.ml",
+        "peekOfCode": "def get_prediction(input: InferenceIn) -> float:\n    \"\"\"Get prediction from data\"\"\"\n    predict = pd.DataFrame(input.model_dump(mode=\"python\"))\n    return model.predict(predict[0])",
+        "detail": "services.ml",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "services.ml",
+        "description": "services.ml",
+        "peekOfCode": "model = mlflow.pyfunc.load_model(model_uri=config.MODEL_URI)\ndef get_prediction(input: InferenceIn) -> float:\n    \"\"\"Get prediction from data\"\"\"\n    predict = pd.DataFrame(input.model_dump(mode=\"python\"))\n    return model.predict(predict[0])",
+        "detail": "services.ml",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI(title=config.API_TITLE)\napp.include_router(inference_router)\n@app.get(\"/\", tags=[\"Home Page\"])\nasync def root():\n    \"\"\"Default page\"\"\"\n    return \"ML Flow Service\"\nif __name__ == \"__main__\":\n    uvicorn.run(\"main:app\", host=config.API_HOST, port=config.API_PORT, reload=True)",
+        "detail": "main",
+        "documentation": {}
+    }
+]
