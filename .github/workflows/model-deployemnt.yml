@@ -21,6 +21,7 @@ jobs:
         pylint $(git ls-files '*.py') --fail-under 7
 
   deploy:
+      environment: Global
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
@@ -45,7 +46,7 @@ jobs:
         
         - name: Build Docker Image
           run: |
-             export $IMAGE = ${{vars.DOCKER_USER}}/ml-service:latest 
+             export IMAGE="${{vars.DOCKER_USER}}/ml-service:latest" 
              docker build -t $IMAGE .
         
         - name: Push Docker Image on Docker Hub
